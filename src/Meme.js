@@ -6,7 +6,7 @@ function Meme(props) {
   const [meme, setMeme] = React.useState({
     topText: "",
     bottomText: "",
-    randomImage: "https://i.imgflip.com/30b1gx.jpg",
+    randomImage: "https://i.imgflip.com/1jwhww.jpg",
   });
   const [allMemeImages, setAllMemeImages] = React.useState(memesData);
   // const [result, setResult] = React.useState("hello");
@@ -21,40 +21,46 @@ function Meme(props) {
     const url = memeArray[randomMeme].url;
     setMeme((prevMeme) => ({ ...prevMeme, randomImage: url }));
   }
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setMeme((prevState) => {
+      return {
+        ...prevState,
+        [name]: value,
+      };
+    });
+  }
 
   return (
     <div className="meme">
       <div className="inputs">
-        <input type="text" className="input" placeholder="Top text" />
-        <input type="text" className="input" placeholder="Botton text" />
+        <input
+          type="text"
+          name="topText"
+          className="input"
+          value={meme.topText}
+          placeholder="Top text"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="bottomText"
+          value={meme.bottomText}
+          className="input"
+          placeholder="Botton text"
+          onChange={handleChange}
+        />
       </div>
       <button onClick={getMemeImage} className="btn-meme">
         Get a new meme image
       </button>
-
-      <img className="img-pic" src={meme.randomImage} alt="" />
+      <div className="meme">
+        <img className="img-pic" src={meme.randomImage} alt="" />
+        <h1 className="meme--text top">{meme.topText}</h1>
+        <h1 className="meme--text bottom">{meme.bottomText}</h1>
+      </div>
     </div>
   );
 }
 
 export default Meme;
-
-// function greeting(name) {
-//   const date = new Date();
-//   const hours = date.getHours();
-
-//   let timeOfDay;
-
-//   if (hours >= 4 && hours <= 12) {
-//     timeOfDay = "morning";
-//   } else if (hours >= 12 && hours <= 17) {
-//     timeOfDay = "afternoon";
-//   } else if (hours >= 17 && hours <= 20) {
-//     timeOfDay = "evening";
-//   } else if (hours >= 20 && hours <= 4) {
-//     timeOfDay = "night";
-//   }
-//   return console.log(hours);
-// }
-
-// greeting("Boob");
